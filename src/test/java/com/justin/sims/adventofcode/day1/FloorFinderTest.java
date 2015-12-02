@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.justin.sims.adventofcode.day1.FloorFinder;
 
-public class FloorFinderTests {
+public class FloorFinderTest {
 	
 	@Test
 	public void testFloorFinderWithEmptyInput(){

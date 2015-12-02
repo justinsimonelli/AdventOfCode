@@ -7,24 +7,28 @@ import java.util.Collections;
 
 import org.junit.Test;
 
+import com.justin.sims.adventofcode.utils.strategy.MultiplicationStrategy;
+
 
 public class PresentWrapperTest {
 	
+	private MultiplicationStrategy strategy = new MultiplicationStrategy();
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testPresentWrapperWithEmptyInput(){
-		PresentWrapper.calculateTotalWrappingPaperNeeded(Collections.emptyList());
+		PresentWrapper.calculateTotalMaterialNeeded(Collections.emptyList(), strategy);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testPresentWrapperWithNullInput(){
-		PresentWrapper.calculateTotalWrappingPaperNeeded(null);
+		PresentWrapper.calculateTotalMaterialNeeded(null, strategy);
 	}
 	
 	@Test
 	public void testPresentWrapperWithGivenExamples()
 	{
-		assertEquals(58, PresentWrapper.calculateTotalWrappingPaperNeeded(Arrays.asList("2x3x4")));
-		assertEquals(43, PresentWrapper.calculateTotalWrappingPaperNeeded(Arrays.asList("1x1x10")));
+		assertEquals(58, PresentWrapper.calculateTotalMaterialNeeded(Arrays.asList("2x3x4"), strategy));
+		assertEquals(43, PresentWrapper.calculateTotalMaterialNeeded(Arrays.asList("1x1x10"), strategy));
 	}
 	
 }

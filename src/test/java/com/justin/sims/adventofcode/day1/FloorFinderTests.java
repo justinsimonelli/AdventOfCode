@@ -9,34 +9,39 @@ public class FloorFinderTests {
 	
 	@Test
 	public void testFloorFinderWithEmptyInput(){
-		assertEquals(0, FloorFinder.solvePuzzle(""));
+		assertEquals(null, FloorFinder.solvePuzzle(""));
 	}
 	
 	@Test
 	public void testFloorFinderWithNullInput(){
-		assertEquals(0, FloorFinder.solvePuzzle(null));
+		assertEquals(null, FloorFinder.solvePuzzle(null));
 	}
 
 	@Test
 	public void testFloorFinderWithGivenExamples() {
 
 		// should return 0
-		assertEquals(0, FloorFinder.solvePuzzle("(())"));
-		assertEquals(0, FloorFinder.solvePuzzle("()()"));
+		assertEquals(0, FloorFinder.solvePuzzle("(())").get(FloorFinder.FLOOR_KEY).intValue() );
+		assertEquals(0, FloorFinder.solvePuzzle("()()").get(FloorFinder.FLOOR_KEY).intValue());
 
 		// should return 3
-		assertEquals(3, FloorFinder.solvePuzzle("((("));
-		assertEquals(3, FloorFinder.solvePuzzle("(()(()("));
-		assertEquals(3, FloorFinder.solvePuzzle("))((((("));
+		assertEquals(3, FloorFinder.solvePuzzle("(((").get(FloorFinder.FLOOR_KEY).intValue());
+		assertEquals(3, FloorFinder.solvePuzzle("(()(()(").get(FloorFinder.FLOOR_KEY).intValue());
+		assertEquals(3, FloorFinder.solvePuzzle("))(((((").get(FloorFinder.FLOOR_KEY).intValue());
 
 		// should return -1
-		assertEquals(-1, FloorFinder.solvePuzzle("())"));
-		assertEquals(-1, FloorFinder.solvePuzzle("))("));
+		assertEquals(-1, FloorFinder.solvePuzzle("())").get(FloorFinder.FLOOR_KEY).intValue());
+		assertEquals(-1, FloorFinder.solvePuzzle("))(").get(FloorFinder.FLOOR_KEY).intValue());
 
 		// should return -3
-		assertEquals(-3, FloorFinder.solvePuzzle(")))"));
-		assertEquals(-3, FloorFinder.solvePuzzle(")())())"));
+		assertEquals(-3, FloorFinder.solvePuzzle(")))").get(FloorFinder.FLOOR_KEY).intValue());
+		assertEquals(-3, FloorFinder.solvePuzzle(")())())").get(FloorFinder.FLOOR_KEY).intValue());
 
+	}
+	
+	@Test
+	public void testEnteringAndExitingBasementReturningOnlyFirstInstance(){
+		assertEquals(7, FloorFinder.solvePuzzle("()()())(()())").get(FloorFinder.BASEMENT_KEY).intValue());
 	}
 
 }

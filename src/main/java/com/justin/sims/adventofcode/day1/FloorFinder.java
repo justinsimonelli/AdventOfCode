@@ -3,8 +3,12 @@ package com.justin.sims.adventofcode.day1;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -27,11 +31,14 @@ import java.util.stream.Stream;
 public class FloorFinder {
 
 	private final static String PUZZLE_INPUT_PATH = "resources/day1/input.txt";
+	public final static String FLOOR_KEY = "floor";
+	public final static String BASEMENT_KEY = "basement";
 
 	public static void main(String[] args) {
-		Integer floorSantaIsOn = solvePuzzle( getPuzzleInput(PUZZLE_INPUT_PATH) );
+		Map<String, Integer> floorMap = solvePuzzle( getPuzzleInput(PUZZLE_INPUT_PATH) );
 		
-		System.out.println("Santa is on floor " + floorSantaIsOn);
+		System.out.println("Santa is on floor " + floorMap.get(FLOOR_KEY));
+		System.out.println("Santa first entered the basement at index " + floorMap.get(BASEMENT_KEY));
 
 	}
 
@@ -61,25 +68,34 @@ public class FloorFinder {
 	 * @param input
 	 * @return
 	 */
-	public static int solvePuzzle(String input){
+	public static Map<String, Integer> solvePuzzle(String input){
 		
 		if( input == null || input.length() == 0 )
 		{
-			return 0;
+			return null;
 		}
 		
-		AtomicInteger direction = new AtomicInteger();
-
-		input.chars().mapToObj(i -> (char) i).forEach(directionChar -> {
-			if( '(' == directionChar ){
-				direction.incrementAndGet();
-			}else if( ')' == directionChar ){
-				direction.decrementAndGet();
+		AtomicInteger currentFloor = new AtomicInteger();
+		Map<String, Integer> floorMap = new HashMap<>();
+		AtomicBoolean hasEnteredBasement = new AtomicBoolean(false);
+		
+		IntStream.range(0, input.length()).forEach(idx -> {
+			if( '(' == input.charAt(idx) ){
+				currentFloor.incrementAndGet();
+			}else if( ')' == input.charAt(idx) ){
+				currentFloor.decrementAndGet();
+			}
+			
+			if( currentFloor.get() == -1 && hasEnteredBasement.get() == false ){
+				//idx+1 since this is 1 based instead of 0 based
+				floorMap.put(BASEMENT_KEY, idx + 1);
+				hasEnteredBasement.getAndSet(true);
 			}
 		});
 		
+		floorMap.put(FLOOR_KEY, currentFloor.get());
 		
-		return direction.get();
+		return floorMap;
 	}
 
 }

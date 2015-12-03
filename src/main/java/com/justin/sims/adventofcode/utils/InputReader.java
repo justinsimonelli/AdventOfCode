@@ -83,7 +83,7 @@ public class InputReader {
 			}
 			
 			bubbleSort(dims);
-
+			
 			intList.add(dims);
 		});
 		return intList;

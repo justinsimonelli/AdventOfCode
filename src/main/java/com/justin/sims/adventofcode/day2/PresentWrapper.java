@@ -50,10 +50,12 @@ public class PresentWrapper {
 	public static void main(String[] args) {
 		int totalWrappingPaper = calculateTotalMaterialNeeded(InputReader
 				.getFileInputAsList(PUZZLE_INPUT_PATH), new MultiplicationStrategy());
+	
 		System.out.println("Total amount of wrapping paper needed: " + totalWrappingPaper);
 		
 		int totalRibbon = calculateTotalMaterialNeeded(InputReader
 				.getFileInputAsList(PUZZLE_INPUT_PATH), new AdditionStrategy());
+		
 		System.out.println("Total amount of ribbon needed: " + totalRibbon);
 	}
 

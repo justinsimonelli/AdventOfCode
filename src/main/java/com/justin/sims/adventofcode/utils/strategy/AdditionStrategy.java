@@ -1,7 +1,5 @@
 package com.justin.sims.adventofcode.utils.strategy;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class AdditionStrategy extends AbstractListStrategy {
 
 	@Override
@@ -11,10 +9,10 @@ public class AdditionStrategy extends AbstractListStrategy {
 			return -1;
 		}
 		
-		AtomicInteger totalNeeded = new AtomicInteger(0);
+		int totalNeeded = (2 * dims[0]) + (2 * dims[1]);
+		totalNeeded += dims[0] * dims[1] * dims[2];
 		
-		
-		return totalNeeded.get();
+		return totalNeeded;
 	}
 
 }

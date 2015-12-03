@@ -15,8 +15,8 @@ public class DrunkElves {
 
 	public static void main(String[] args) throws Exception {
 
-		int housesVisited = visitAndCountHouses(InputReader
-				.getFileInputAsString(PUZZLE_INPUT_PATH), true);
+		int housesVisited = visitAndCountHouses(
+				InputReader.getFileInputAsString(PUZZLE_INPUT_PATH), true);
 
 		System.out.println(String.format("%d houses got a present",
 				housesVisited));
@@ -30,9 +30,9 @@ public class DrunkElves {
 	 * @param hasRobotHelper
 	 * @return
 	 */
-	public static int visitAndCountHouses(String directions, final boolean hasRobotHelper) {
+	public static int visitAndCountHouses(String directions,
+			final boolean hasRobotHelper) {
 
-		//2631
 		if (directions == null || directions.length() == 0) {
 			return 0;
 		}
@@ -40,23 +40,24 @@ public class DrunkElves {
 		Santa ogSanta = new Santa(0, 0);
 		Santa roboSanta = null;
 		boolean isSantaDelivering = true;
-		
-		if( hasRobotHelper == true ){
+
+		if (hasRobotHelper == true) {
 			roboSanta = new Santa(0, 0);
 		}
-		
-		for( int i = 0; i < directions.length(); i++ )
-		{
+
+		for (int i = 0; i < directions.length(); i++) {
 			if (isSantaDelivering == true) {
 				moveAndAddHouseToSet(directions.charAt(i), ogSanta);
-				isSantaDelivering = (hasRobotHelper) ? false:true;
+				isSantaDelivering = (hasRobotHelper) ? false : true;
 			} else if (isSantaDelivering == false) {
 				moveAndAddHouseToSet(directions.charAt(i), roboSanta);
 				isSantaDelivering = true;
 			}
 		}
-		
-		ogSanta.getHousesVisited().addAll(roboSanta.getHousesVisited());
+
+		if (hasRobotHelper == true) {
+			ogSanta.getHousesVisited().addAll(roboSanta.getHousesVisited());
+		}
 
 		return ogSanta.getHousesVisited().size();
 	}
@@ -69,6 +70,10 @@ public class DrunkElves {
 	 * @param santa
 	 */
 	private static void moveAndAddHouseToSet(char direction, Santa santa) {
+
+		if (santa == null) {
+			throw new IllegalArgumentException("Santa object cannot be null!");
+		}
 
 		switch (direction) {
 		case '^':

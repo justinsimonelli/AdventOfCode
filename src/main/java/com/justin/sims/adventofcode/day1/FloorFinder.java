@@ -58,7 +58,7 @@ public class FloorFinder {
 	}
 
 	/**
-	 * Solve the puzzle!
+	 * Find the floor Mr. Claus is on.
 	 * 
 	 * @param input
 	 * @return

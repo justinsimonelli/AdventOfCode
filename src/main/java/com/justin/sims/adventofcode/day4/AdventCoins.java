@@ -2,6 +2,7 @@ package com.justin.sims.adventofcode.day4;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -61,27 +62,24 @@ public class AdventCoins {
 
 	public static Map<String, String> findSmallestHashValueForInput(
 			String input, int numLeadingZeros) {
+
 		Map<String, String> dataMap = new HashMap<>();
 		if (input == null || input.length() == 0) {
 			return dataMap;
 		}
 
-		int loopMax = 100;
-		String digestPrefix = "";
-		for (int i = 0; i <= numLeadingZeros; i++) {
-			loopMax *= 10;
-			digestPrefix += "0";
-		}
-
+		int i = 0;
+		Pattern p = Pattern.compile("^(0{" + numLeadingZeros + "})");
 		System.out.println("\nAttemping to hash...\n");
 
-		for (int i = 0; i < loopMax; i++) {
+		while (true) {
 			String digest = DigestUtils.md5Hex(input + i);
-			if (digest.startsWith(digestPrefix.substring(0, numLeadingZeros))) {
+			if (p.matcher(digest).find()) {
 				dataMap.put(KEY_HASH_VALUE, String.valueOf(i));
 				dataMap.put(KEY_HEX_VALUE, digest);
 				break;
 			}
+			i++;
 		}
 
 		return dataMap;

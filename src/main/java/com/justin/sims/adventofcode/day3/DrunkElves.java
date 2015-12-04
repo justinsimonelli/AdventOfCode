@@ -16,10 +16,14 @@ public class DrunkElves {
 	public static void main(String[] args) throws Exception {
 
 		int housesVisited = visitAndCountHouses(
-				InputReader.getFileInputAsString(PUZZLE_INPUT_PATH), true);
+				InputReader.getFileInputAsString(PUZZLE_INPUT_PATH), false);
+		
+		System.out.println(String.format("%d houses got a present with 1 Santa", housesVisited) );
 
-		System.out.println(String.format("%d houses got a present",
-				housesVisited));
+		housesVisited = visitAndCountHouses(
+				InputReader.getFileInputAsString(PUZZLE_INPUT_PATH), true);
+		
+		System.out.println(String.format("%d houses got a present with 2 Santas", housesVisited) );
 	}
 
 	/**

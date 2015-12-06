@@ -1,4 +1,4 @@
-package day3;
+package com.justin.sims.adventofcode.day3;
 
 import static org.junit.Assert.assertEquals;
 

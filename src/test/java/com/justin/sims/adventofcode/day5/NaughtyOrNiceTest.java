@@ -98,5 +98,13 @@ public class NaughtyOrNiceTest {
 				NaughtyOrNice.findNumberOfGoodStrings(
 						Arrays.asList("aaa"), algoTwo));
 	}
+	
+	@Test
+	public void testNaughtyOrNice_AlgoTwo_ChallengeInput() {
+		assertEquals(
+				53,
+				NaughtyOrNice.findNumberOfGoodStrings(
+						InputReader.getFileInputAsList("resources/day5/input.txt"), algoTwo));
+	}
 
 }

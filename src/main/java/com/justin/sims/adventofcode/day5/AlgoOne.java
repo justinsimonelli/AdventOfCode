@@ -4,7 +4,6 @@ public class AlgoOne extends NaughtyOrNiceAlgo {
 
 	@Override
 	public int determineIfNaughtyOrNice(String input) {
-		int goodStrings = 0;
 		int numberOfGoodCharsFound = 0;
 		boolean containsGoodDouble = false;
 		boolean containsUnallowableChars = false;
@@ -25,11 +24,9 @@ public class AlgoOne extends NaughtyOrNiceAlgo {
 				containsGoodDouble = true;
 			}
 		}
-		if (numberOfGoodCharsFound > 2 && containsGoodDouble
-				&& containsUnallowableChars == false) {
-			goodStrings++;
-		}
-		return goodStrings;
+
+		return (numberOfGoodCharsFound > 2 && containsGoodDouble
+				&& containsUnallowableChars == false) ? 1: 0;
 	}
 
 }

@@ -9,29 +9,27 @@ public class AlgoOne extends NaughtyOrNiceAlgo {
 		boolean containsGoodDouble = false;
 		boolean containsUnallowableChars = false;
 
-		for (int i = 0; i < input.length(); i++) {
+		for (int i = 1; i < input.length(); i++) {
 			char c = input.charAt(i);
-			char nextChar = (i != input.length() - 1) ? input.charAt(i + 1)
-					: '0';
-			String doubleString = String.valueOf(c)
-					+ String.valueOf(nextChar);
+			char prev = input.charAt(i - 1);
 
-			if (vowels.contains(c)) {
+			if (vowels.contains(prev))
 				numberOfGoodCharsFound++;
-			}
+			if (i == input.length() - 1 && vowels.contains(c))
+				numberOfGoodCharsFound++;
 
-			if (unallowableDoubleChars.matcher(doubleString).find()) {
+			if (unallowableDoubleChars.matcher(
+					String.valueOf(prev) + String.valueOf(c)).find()) {
 				containsUnallowableChars = true;
-			} else if (c == nextChar) {
+			} else if (c == prev) {
 				containsGoodDouble = true;
 			}
 		}
-		if (numberOfGoodCharsFound >= 3 && containsGoodDouble
+		if (numberOfGoodCharsFound > 2 && containsGoodDouble
 				&& containsUnallowableChars == false) {
 			goodStrings++;
 		}
 		return goodStrings;
 	}
-	
 
 }

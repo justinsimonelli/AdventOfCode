@@ -12,10 +12,8 @@ public class AlgoOne extends NaughtyOrNiceAlgo {
 			char c = input.charAt(i);
 			char prev = input.charAt(i - 1);
 
-			if (vowels.contains(prev))
-				numberOfGoodCharsFound++;
-			if (i == input.length() - 1 && vowels.contains(c))
-				numberOfGoodCharsFound++;
+			numberOfGoodCharsFound += doesVowelListContainChar(prev);
+			numberOfGoodCharsFound += ( i == input.length() -1 ) ? doesVowelListContainChar(c) : 0;
 
 			if (unallowableDoubleChars.matcher(
 					String.valueOf(prev) + String.valueOf(c)).find()) {
@@ -25,8 +23,12 @@ public class AlgoOne extends NaughtyOrNiceAlgo {
 			}
 		}
 
-		return (numberOfGoodCharsFound > 2 && containsGoodDouble
-				&& containsUnallowableChars == false) ? 1: 0;
+		return (numberOfGoodCharsFound > 2 && containsGoodDouble && containsUnallowableChars == false) ? 1
+				: 0;
+	}
+	
+	private int doesVowelListContainChar(char c){
+		return (vowels.contains(c)) ? 1 : 0;
 	}
 
 }

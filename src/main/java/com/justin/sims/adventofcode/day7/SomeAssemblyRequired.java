@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.justin.sims.adventofcode.utils.InputReader;
 
 public class SomeAssemblyRequired {
@@ -30,10 +32,8 @@ public class SomeAssemblyRequired {
 
 	private static int getDirectionsForWire(String wire) {
 		
-		try { 
+		if( NumberUtils.isDigits(mappings.get(wire)) ){
 			return Integer.parseInt(mappings.get(wire));
-		} catch (NumberFormatException e) {
-
 		}
 		
 		if (!values.containsKey(wire)) {
@@ -60,56 +60,32 @@ public class SomeAssemblyRequired {
 
 	private static int performOperation(String operation) {
 
-		Integer leftVal = null;
-		Integer rightVal = null;
-		Integer value = null;
 		String[] instructions = splitInstruction(operation);
 			
 		if( instructions[0].trim().startsWith("NOT")  ){
 			return 65535 - getDirectionsForWire(instructions[1]);
 		}
 		
-		try {
-			leftVal  = Integer.parseInt(instructions[0]);
-		} catch (NumberFormatException e) {
-			leftVal = getDirectionsForWire(instructions[0]);
+		Integer leftVal = ( NumberUtils.isDigits(instructions[0]) ) ? Integer.parseInt(instructions[0]) : getDirectionsForWire(instructions[0]);		
+		Integer rightVal = ( NumberUtils.isDigits(instructions[2]) ) ? Integer.parseInt(instructions[2]) : getDirectionsForWire(instructions[2]);
+		
+		switch (instructions[1]) {
+		case "LSHIFT":
+			return leftVal << rightVal;
+		case "RSHIFT":
+			return leftVal >> rightVal;
+		case "AND":
+			return leftVal & rightVal;
+		case "OR":
+			return leftVal | rightVal;
 		}
-				
-		if( instructions.length > 2 ){
-			
-			try {
-				rightVal = Integer.parseInt(instructions[2]);
-			} catch (NumberFormatException e) {
-				rightVal = getDirectionsForWire(instructions[2]);
-			}
-			
-			switch (instructions[1]) {
-			case "LSHIFT":
-				value = leftVal << rightVal;
-				break;
-			case "RSHIFT":
-				value = leftVal >> rightVal;
-				break;
-			case "AND":
-				value = leftVal & rightVal;
-				break;
-			case "OR":
-				value = leftVal | rightVal;
-				break;
-
-			default:
-				break;
-			}
-		}
-
-		return value;
+		
+		return 0;
 
 	}
 
 	private static String[] splitInstruction(String instruction) {
-		String[] instructions = instruction.trim().split(" ");
-
-		return instructions;
+		return instruction.trim().split(" ");
 	}
 
 	private static void generateMappingsFromInput(List<String> input) {
